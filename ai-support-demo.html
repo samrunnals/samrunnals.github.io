@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Customer Support Automation | Demo</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  .chat-bubble-user { background:#2563eb; color:white; }
+  .chat-bubble-bot { background:#e5e7eb; }
+</style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+<!-- NAV -->
+<nav class="bg-white shadow-sm p-4 flex justify-between">
+  <span class="font-bold">AI Support Automation (Demo)</span>
+  <span class="text-sm text-gray-500">Test Environment</span>
+</nav>
+
+<!-- HERO -->
+<section class="max-w-4xl mx-auto py-16 px-6 text-center">
+  <h1 class="text-4xl font-bold mb-4">AI Customer Support Automation</h1>
+  <p class="text-lg text-gray-600 mb-6">
+    This is a fully functional TEST version of an AI-powered customer support system.
+    Safe to experiment. No real customers. No real emails.
+  </p>
+</section>
+
+<!-- FEATURES -->
+<section class="max-w-5xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-6">
+  <div class="bg-white p-6 rounded-xl shadow">Instant AI Replies</div>
+  <div class="bg-white p-6 rounded-xl shadow">Refund & Returns Logic</div>
+  <div class="bg-white p-6 rounded-xl shadow">Complaint Detection</div>
+  <div class="bg-white p-6 rounded-xl shadow">Escalation to Human</div>
+  <div class="bg-white p-6 rounded-xl shadow">Conversation Logging</div>
+  <div class="bg-white p-6 rounded-xl shadow">Reusable Client Template</div>
+</section>
+
+<!-- CHATBOT -->
+<section class="max-w-xl mx-auto px-6 py-16">
+  <h2 class="text-2xl font-semibold mb-4 text-center">Live AI Support Bot (Test)</h2>
+  <div class="bg-white rounded-xl shadow p-4 h-[400px] flex flex-col">
+    <div id="chat" class="flex-1 overflow-y-auto space-y-2 mb-4"></div>
+    <div class="flex gap-2">
+      <input id="input" class="flex-1 border rounded px-3 py-2" placeholder="Type a customer question..." />
+      <button onclick="sendMessage()" class="bg-blue-600 text-white px-4 rounded">Send</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="text-center text-sm text-gray-500 py-6">
+  Demo system • Not for production use
+</footer>
+
+<script>
+const chat = document.getElementById("chat");
+
+function addMessage(text, type) {
+  const div = document.createElement("div");
+  div.className = "p-3 rounded-xl max-w-[80%] " + (type === "user" ? "ml-auto chat-bubble-user" : "chat-bubble-bot");
+  div.innerText = text;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function mockAIResponse(message) {
+  message = message.toLowerCase();
+
+  if (message.includes("refund")) {
+    return "I can help with refunds. Please note refunds are processed within 5–7 business days once approved.";
+  }
+  if (message.includes("order")) {
+    return "You can check your order status using your order number. Orders usually ship within 24 hours.";
+  }
+  if (message.includes("angry") || message.includes("complaint")) {
+    return "I’m really sorry about this experience. I’ll escalate this to a human support agent right away.";
+  }
+  if (message.includes("human")) {
+    return "No problem — I’m escalating this conversation to a human support agent.";
+  }
+  return "Thanks for your message! I can help with orders, refunds, returns, or general questions.";
+}
+
+function sendMessage() {
+  const input = document.getElementById("input");
+  if (!input.value) return;
+  addMessage(input.value, "user");
+  const response = mockAIResponse(input.value);
+  setTimeout(() => addMessage(response, "bot"), 500);
+  input.value = "";
+}
+</script>
+
+</body>
+</html>
